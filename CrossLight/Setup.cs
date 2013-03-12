@@ -16,6 +16,8 @@ using Cirrious.CrossCore.Exceptions;
 using Cirrious.CrossCore.Interfaces.Core;
 using Cirrious.CrossCore.Interfaces.IoC;
 using Cirrious.CrossCore.Interfaces.Platform.Diagnostics;
+using Cirrious.CrossCore.Interfaces.Plugins;
+using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.Binding.Droid;
 
 namespace CrossLight
@@ -460,6 +462,7 @@ namespace CrossLight
             ioc.RegisterSingleton<ITopActivity>(topActivity);
             ioc.RegisterSingleton<IMvxAndroidCurrentTopActivity>(topActivity);
 
+            ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
             ioc.RegisterSingleton<IMvxMainThreadDispatcherProvider>(new MainThreadDispatcherProvider());
 
             var builder = new MvxDroidBindingBuilder(ignored => { }, ignored => { }, ignored => { });
