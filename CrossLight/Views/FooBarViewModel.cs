@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace CrossLight
+namespace CrossLight.Views
 {
     public class FooBarViewModel : INotifyPropertyChanged
     {

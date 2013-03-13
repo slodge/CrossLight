@@ -1,7 +1,7 @@
 using Android.Views;
 using Cirrious.MvvmCross.Binding.Droid.Interfaces.Views;
 
-namespace CrossLight
+namespace PluginConsumer.Framework
 {
     public class LayoutInflaterProvider
         : IMvxLayoutInflater

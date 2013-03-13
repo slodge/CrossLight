@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DD4A0288-CF03-4407-BA87-3536956B6133}</ProjectGuid>
+    <ProjectGuid>{5B7482FC-DD9F-4C9B-BFBB-415F791D8B27}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CrossLight</RootNamespace>
-    <AssemblyName>CrossLight</AssemblyName>
+    <RootNamespace>PluginConsumer</RootNamespace>
+    <AssemblyName>PluginConsumer</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -50,6 +50,12 @@
     <Reference Include="Cirrious.MvvmCross.Binding.Droid">
       <HintPath>..\mvx\Droid\Debug\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location">
+      <HintPath>..\mvx\Droid\Debug\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location.Droid">
+      <HintPath>..\mvx\Droid\Debug\Cirrious.MvvmCross.Plugins.Location.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -58,11 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\FooBarView.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\FooBarViewModel.cs" />
+    <Compile Include="Views\LocationView.cs" />
+    <Compile Include="Framework\SimpleCommand.cs" />
+    <Compile Include="Views\LocationViewModel.cs" />
     <Compile Include="Framework\AndroidGlobals.cs" />
     <Compile Include="Framework\AndroidTopActivity.cs" />
     <Compile Include="Framework\ITopActivity.cs" />
@@ -72,8 +78,6 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />
   </ItemGroup>
   <ItemGroup>
@@ -83,10 +87,8 @@
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+    <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

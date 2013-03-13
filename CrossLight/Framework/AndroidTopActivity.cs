@@ -2,7 +2,7 @@ using System;
 using Android.App;
 using Cirrious.CrossCore.Interfaces.Core;
 
-namespace CrossLight
+namespace CrossLight.Framework
 {
     public class AndroidTopActivity
         : ITopActivity

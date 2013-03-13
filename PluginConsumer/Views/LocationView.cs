@@ -2,12 +2,12 @@
 using Android.OS;
 using Cirrious.CrossCore.Interfaces.IoC;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using CrossLight.Framework;
+using PluginConsumer.Framework;
 
-namespace CrossLight.Views
+namespace PluginConsumer.Views
 {
     [Activity(Label = "CrossLight", MainLauncher = true, Icon = "@drawable/icon")]
-    public class FooBarView : Activity
+    public class LocationView : Activity
     {
         private MvxBindingContext _bindingContext;
 
@@ -19,8 +19,14 @@ namespace CrossLight.Views
             Setup.Instance.EnsureInitialized(ApplicationContext);
             Mvx.Resolve<ITopActivity>().Activity = this;
 
-            _bindingContext = new MvxBindingContext(this, new LayoutInflaterProvider(LayoutInflater), new FooBarViewModel());
-            
+            // ensure location plugin is available
+            Cirrious.MvvmCross.Plugins.Location.PluginLoader.Instance.EnsureLoaded();
+
+            // create the view model
+            var viewModel = Mvx.IocConstruct<LocationViewModel>();
+
+            // create the databound UI
+            _bindingContext = new MvxBindingContext(this, new LayoutInflaterProvider(LayoutInflater), viewModel);            
             var view = _bindingContext.BindingInflate(Resource.Layout.Main, null);
             SetContentView(view);
         }

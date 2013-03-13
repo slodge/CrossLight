@@ -2,7 +2,7 @@ using System.Reflection;
 using Android.Content;
 using Cirrious.CrossCore.Droid.Interfaces;
 
-namespace CrossLight
+namespace CrossLight.Framework
 {
     public class AndroidGlobals
         : IMvxAndroidGlobals
@@ -16,7 +16,7 @@ namespace CrossLight
 
         public virtual string ExecutableNamespace
         {
-            get { return GetType().Namespace; }
+            get { return "CrossLight"; }
         }
 
         public virtual Assembly ExecutableAssembly

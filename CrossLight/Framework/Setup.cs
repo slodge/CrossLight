@@ -1,8 +1,4 @@
-using System.Text;
 using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Cirrious.CrossCore.Droid.Interfaces;
 using Cirrious.CrossCore.Interfaces.Core;
 using Cirrious.CrossCore.Interfaces.Platform.Diagnostics;
@@ -12,7 +8,7 @@ using Cirrious.CrossCore.Platform.Diagnostics;
 using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.Binding.Droid;
 
-namespace CrossLight
+namespace CrossLight.Framework
 {
     public class Setup
     {
