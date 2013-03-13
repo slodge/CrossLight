@@ -67,9 +67,6 @@
     <Compile Include="Views\Infrastructure\AndroidGlobals.cs" />
     <Compile Include="Views\Infrastructure\AndroidTopActivity.cs" />
     <Compile Include="Views\Infrastructure\ITopActivity.cs" />
-    <Compile Include="Views\Infrastructure\MainThreadDispatcherProvider.cs" />
-    <Compile Include="Views\Infrastructure\MvxDebugTrace.cs" />
-    <Compile Include="Views\Infrastructure\MvxSimpleIoCContainer.cs" />
     <Compile Include="Views\Infrastructure\Setup.cs" />
     <Compile Include="Views\Infrastructure\LayoutInflaterProvider.cs" />
   </ItemGroup>

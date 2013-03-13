@@ -6,7 +6,6 @@ namespace CrossLight
 {
     public interface ITopActivity
         : IMvxAndroidCurrentTopActivity
-          , IMvxMainThreadDispatcher
     {
         new Activity Activity { get; set; }        
     }

@@ -7,6 +7,8 @@ using Cirrious.CrossCore.Droid.Interfaces;
 using Cirrious.CrossCore.Interfaces.Core;
 using Cirrious.CrossCore.Interfaces.Platform.Diagnostics;
 using Cirrious.CrossCore.Interfaces.Plugins;
+using Cirrious.CrossCore.IoC;
+using Cirrious.CrossCore.Platform.Diagnostics;
 using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.Binding.Droid;
 
@@ -27,15 +29,15 @@ namespace CrossLight
 
             var ioc = MvxSimpleIoCContainer.Initialise();
 
-            ioc.RegisterSingleton<IMvxTrace>(new MvxDebugTrace());
+            ioc.RegisterSingleton<IMvxTrace>(new MvxDebugOnlyTrace());
+            ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
+
             ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext));
 
             var topActivity = new AndroidTopActivity();
             ioc.RegisterSingleton<ITopActivity>(topActivity);
             ioc.RegisterSingleton<IMvxAndroidCurrentTopActivity>(topActivity);
-
-            ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
-            ioc.RegisterSingleton<IMvxMainThreadDispatcherProvider>(new MainThreadDispatcherProvider());
+            ioc.RegisterSingleton<IMvxMainThreadDispatcherProvider>(topActivity);
 
             var builder = new MvxDroidBindingBuilder(ignored => { }, ignored => { }, ignored => { });
             builder.DoRegistration();
