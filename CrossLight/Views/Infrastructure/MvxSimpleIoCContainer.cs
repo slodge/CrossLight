@@ -1,31 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
-using Cirrious.CrossCore.Droid.Interfaces;
+using Cirrious.CrossCore.Core;
 using Cirrious.CrossCore.Exceptions;
-using Cirrious.CrossCore.Interfaces.Core;
 using Cirrious.CrossCore.Interfaces.IoC;
-using Cirrious.CrossCore.Interfaces.Platform.Diagnostics;
-using Cirrious.CrossCore.Interfaces.Plugins;
-using Cirrious.CrossCore.Plugins;
-using Cirrious.MvvmCross.Binding.Droid;
 
 namespace CrossLight
 {
     public class MvxSimpleIoCContainer
-    : IMvxIoCProvider
+        : MvxSingleton<IMvxIoCProvider>
+          , IMvxIoCProvider
     {
-        public static readonly IMvxIoCProvider Instance = new MvxSimpleIoCContainer(); 
+        public static IMvxIoCProvider Initialise()
+        {
+            if (Instance != null)
+            {
+                return Instance;
+            }
+
+            // create a new ioc container - it will register itself as the singleton
+            var ioc = new MvxSimpleIoCContainer();
+            return Instance;
+        }
 
         private readonly Dictionary<Type, IResolver> _resolvers = new Dictionary<Type, IResolver>();
 
@@ -354,119 +351,6 @@ namespace CrossLight
                 parameters.Add(parameterValue);
             }
             return parameters;
-        }
-    }
-
-    public class MvxDebugTrace : IMvxTrace
-    {
-        #region IMvxTrace Members
-
-        public void Trace(MvxTraceLevel level, string tag, string message)
-        {
-            Log.Info(tag, message);
-            Debug.WriteLine(tag + ":" + level + ":" + message);
-        }
-
-        public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
-        {
-            try
-            {
-                Log.Info(tag, message, args);
-                Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
-            }
-            catch (FormatException)
-            {
-                Trace(MvxTraceLevel.Error, tag, "Exception during trace");
-                Trace(level, tag, message);
-            }
-        }
-
-        #endregion
-    }
-
-    public interface ITopActivity
-        : IMvxAndroidCurrentTopActivity
-        , IMvxMainThreadDispatcher
-    {
-        new Activity Activity { get; set; }        
-    }
-
-    public class AndroidTopActivity
-        : ITopActivity
-    {
-        public Activity Activity { get; set; }
-
-        public bool RequestMainThreadAction(Action action)
-        {
-            var activity = Activity;
-            if (activity == null)
-                return false;
-
-            activity.RunOnUiThread(action);
-            return true;
-        }
-    }
-
-    public class MainThreadDispatcherProvider
-        : IMvxMainThreadDispatcherProvider
-    {
-        public IMvxMainThreadDispatcher Dispatcher 
-        { 
-            get { return Mvx.Resolve<ITopActivity>(); }
-        }
-    }
-
-    public class AndroidGlobals
-        : IMvxAndroidGlobals
-    {
-        private readonly Context _applicationContext;
-
-        public AndroidGlobals(Context applicationContext)
-        {
-            _applicationContext = applicationContext;
-        }
-
-        public virtual string ExecutableNamespace
-        {
-            get { return GetType().Namespace; }
-        }
-
-        public virtual Assembly ExecutableAssembly
-        {
-            get { return GetType().Assembly; }
-        }
-
-        public Context ApplicationContext
-        {
-            get { return _applicationContext; }
-        }
-    }
-    public class Setup
-    {
-        public static readonly Setup Instance = new Setup();
-
-        private bool _init;
-
-        public void EnsureInitialized(Context applicationContext)
-        {
-            if (_init)
-                return;
-
-            _init = true;
-            var ioc = MvxSimpleIoCContainer.Instance;
-
-            ioc.RegisterSingleton<IMvxTrace>(new MvxDebugTrace());
-            ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext));
-
-            var topActivity = new AndroidTopActivity();
-            ioc.RegisterSingleton<ITopActivity>(topActivity);
-            ioc.RegisterSingleton<IMvxAndroidCurrentTopActivity>(topActivity);
-
-            ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
-            ioc.RegisterSingleton<IMvxMainThreadDispatcherProvider>(new MainThreadDispatcherProvider());
-
-            var builder = new MvxDroidBindingBuilder(ignored => { }, ignored => { }, ignored => { });
-            builder.DoRegistration();
         }
     }
 }
