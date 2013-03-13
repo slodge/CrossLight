@@ -10,7 +10,6 @@ using Cirrious.MvvmCross.Binding.Droid;
 
 namespace PluginConsumer.Framework
 {
-	// note that it is important that 
     public class Setup
     {
         public static readonly Setup Instance = new Setup();
