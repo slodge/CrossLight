@@ -2,7 +2,7 @@ using System;
 using Android.App;
 using Cirrious.CrossCore.Interfaces.Core;
 
-namespace PluginConsumer.Framework
+namespace Mvvm.Framework
 {
     public class AndroidTopActivity
         : ITopActivity

@@ -2,11 +2,11 @@
 using Android.OS;
 using Cirrious.CrossCore.Interfaces.IoC;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using PluginConsumer.Framework;
+using Mvvm.Framework;
 
-namespace PluginConsumer
+namespace Mvvm
 {
-    [Activity(Label = "CrossLight", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PluginUse - Mvvm", MainLauncher = true, Icon = "@drawable/icon")]
     public class LocationView : Activity
     {
         private MvxBindingContext _bindingContext;

@@ -28,6 +28,8 @@ namespace NoBinding
             ioc.RegisterSingleton<IMvxTrace>(new MvxDebugOnlyTrace());
             ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
 
+			ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext, GetType().Namespace));
+
             var topActivity = new AndroidTopActivity();
             ioc.RegisterSingleton<ITopActivity>(topActivity);
             ioc.RegisterSingleton<IMvxAndroidCurrentTopActivity>(topActivity);

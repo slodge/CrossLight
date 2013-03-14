@@ -1,7 +1,7 @@
 using Android.App;
 using Cirrious.CrossCore.Droid.Interfaces;
 
-namespace PluginConsumer.Framework
+namespace Mvvm.Framework
 {
     public interface ITopActivity
         : IMvxAndroidCurrentTopActivity

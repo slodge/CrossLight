@@ -7,9 +7,9 @@ using Cirrious.CrossCore.IoC;
 using Cirrious.CrossCore.Platform.Diagnostics;
 using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.Binding.Droid;
-using PluginConsumer.Framework;
+using Mvvm.Framework;
 
-namespace PluginConsumer
+namespace Mvvm
 {
     public class Setup
     {
@@ -29,7 +29,7 @@ namespace PluginConsumer
             ioc.RegisterSingleton<IMvxTrace>(new MvxDebugOnlyTrace());
             ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
 
-            ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext));
+            ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext, GetType().Namespace));
 
             var topActivity = new AndroidTopActivity();
             ioc.RegisterSingleton<ITopActivity>(topActivity);

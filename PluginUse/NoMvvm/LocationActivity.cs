@@ -7,7 +7,7 @@ using Cirrious.MvvmCross.Plugins.Location;
 
 namespace NoMvvm
 {
-    [Activity(Label = "No Mvvm", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PluginUse - No Mvvm", MainLauncher = true, Icon = "@drawable/icon")]
     public class LocationActivity : Activity
     {
         private IMvxGeoLocationWatcher _geoLocationWatcher;
@@ -78,7 +78,7 @@ namespace NoMvvm
 
         private void UpdateError(MvxLocationError error)
         {
-            _errorText.Text = error.Code.ToString();
+            _errorText.Text = error == null ? "" : error.Code.ToString();
         }
 
         private void UpdateStarted()

@@ -4,6 +4,8 @@ using Cirrious.CrossCore.Interfaces.Plugins;
 using Cirrious.CrossCore.IoC;
 using Cirrious.CrossCore.Platform.Diagnostics;
 using Cirrious.CrossCore.Plugins;
+using Cirrious.CrossCore.Droid.Interfaces;
+using NoBinding.Framework;
 
 namespace NoMvvm
 {
@@ -24,6 +26,8 @@ namespace NoMvvm
 
             ioc.RegisterSingleton<IMvxTrace>(new MvxDebugOnlyTrace());
             ioc.RegisterSingleton<IMvxPluginManager>(new MvxFileBasedPluginManager("Droid"));
-       }
+	
+			ioc.RegisterSingleton<IMvxAndroidGlobals>(new AndroidGlobals(applicationContext, GetType().Namespace));
+		}
     }
 }

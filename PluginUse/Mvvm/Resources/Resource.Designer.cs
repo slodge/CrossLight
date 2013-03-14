@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: Android.Runtime.ResourceDesignerAttribute("PluginConsumer.Resource", IsApplication=true)]
+[assembly: Android.Runtime.ResourceDesignerAttribute("Mvvm.Resource", IsApplication=true)]
 
-namespace PluginConsumer
+namespace Mvvm
 {
 	
 	

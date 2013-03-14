@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace PluginConsumer.Framework
+namespace Mvvm.Framework
 {
     public class SimpleCommand : ICommand
     {

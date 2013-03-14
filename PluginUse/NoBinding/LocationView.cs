@@ -8,7 +8,7 @@ using NoBinding.Framework;
 
 namespace NoBinding
 {
-    [Activity(Label = "No Binding", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PluginUse - No Binding", MainLauncher = true, Icon = "@drawable/icon")]
     public class LocationView : Activity
     {
         private LocationViewModel _locationViewModel;
