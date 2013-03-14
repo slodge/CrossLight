@@ -6,8 +6,10 @@ using Cirrious.CrossCore.Interfaces.Plugins;
 using Cirrious.CrossCore.IoC;
 using Cirrious.CrossCore.Platform.Diagnostics;
 using Cirrious.CrossCore.Plugins;
+using Cirrious.MvvmCross.Binding.Droid;
+using PluginConsumer.Framework;
 
-namespace NoBinding.Framework
+namespace PluginConsumer
 {
     public class Setup
     {
@@ -33,6 +35,9 @@ namespace NoBinding.Framework
             ioc.RegisterSingleton<ITopActivity>(topActivity);
             ioc.RegisterSingleton<IMvxAndroidCurrentTopActivity>(topActivity);
             ioc.RegisterSingleton<IMvxMainThreadDispatcherProvider>(topActivity);
-       }
+
+            var builder = new MvxDroidBindingBuilder(ignored => { }, ignored => { }, ignored => { });
+            builder.DoRegistration();
+        }
     }
 }

@@ -4,7 +4,7 @@ using Cirrious.CrossCore.Interfaces.IoC;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using PluginConsumer.Framework;
 
-namespace PluginConsumer.Views
+namespace PluginConsumer
 {
     [Activity(Label = "CrossLight", MainLauncher = true, Icon = "@drawable/icon")]
     public class LocationView : Activity

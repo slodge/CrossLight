@@ -1,11 +1,10 @@
 using System.ComponentModel;
 using System.Windows.Input;
-using Cirrious.CrossCore.Interfaces.IoC;
 using Cirrious.MvvmCross.Plugins.Location;
 using Cirrious.CrossCore.Platform.Diagnostics;
 using PluginConsumer.Framework;
 
-namespace PluginConsumer.Views
+namespace PluginConsumer
 {
     public class LocationViewModel : INotifyPropertyChanged
     {

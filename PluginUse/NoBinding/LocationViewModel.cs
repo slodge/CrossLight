@@ -4,7 +4,7 @@ using Cirrious.MvvmCross.Plugins.Location;
 using Cirrious.CrossCore.Platform.Diagnostics;
 using NoBinding.Framework;
 
-namespace NoBinding.Views
+namespace NoBinding
 {
     public class LocationViewModel : INotifyPropertyChanged
     {

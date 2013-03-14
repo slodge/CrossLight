@@ -1,17 +1,17 @@
 ﻿using System;
-using System.ComponentModel;
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using Cirrious.CrossCore.Interfaces.IoC;
-using NoBinding.Framework;
+using Cirrious.MvvmCross.Plugins.Location;
 
-namespace NoBinding.Views
+namespace NoMvvm
 {
-    [Activity(Label = "No Binding", MainLauncher = true, Icon = "@drawable/icon")]
-    public class LocationView : Activity
+    [Activity(Label = "No Mvvm", MainLauncher = true, Icon = "@drawable/icon")]
+    public class LocationActivity : Activity
     {
-        private LocationViewModel _locationViewModel;
+        private IMvxGeoLocationWatcher _geoLocationWatcher;
+        private bool _started;
 
         private TextView _latText;
         private TextView _lngText;
@@ -25,13 +25,12 @@ namespace NoBinding.Views
 
             // setup the application
             Setup.Instance.EnsureInitialized(ApplicationContext);
-            Mvx.Resolve<ITopActivity>().Activity = this;
 
             // ensure location plugin is available
             Cirrious.MvvmCross.Plugins.Location.PluginLoader.Instance.EnsureLoaded();
 
-            // create the view model
-            _locationViewModel = Mvx.IocConstruct<LocationViewModel>();
+            // get the location instance
+            _geoLocationWatcher = Mvx.Resolve<IMvxGeoLocationWatcher>();
 
             // create the UI
             SetContentView(Resource.Layout.Main);
@@ -47,51 +46,51 @@ namespace NoBinding.Views
             _button.Click += ButtonOnClick;
 
             // update all UI
-            UpdateError();
+            UpdateError(null);
             UpdateStarted();
-            UpdateLocation();
-
-            // subscribe for future changes
-            _locationViewModel.PropertyChanged += LocationViewModelOnPropertyChanged;
+            UpdateLocation(null);
         }
 
-        private void LocationViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            switch (propertyChangedEventArgs.PropertyName)
-            {
-                case "Location":
-                    UpdateLocation();
-                    return;
-                case "Error":
-                    UpdateError();
-                    return;
-                case "Started":
-                    UpdateStarted();
-                    return;
-            }
-        }
 
         private void ButtonOnClick(object sender, EventArgs eventArgs)
         {
-            _locationViewModel.ToggleCommand.Execute(null);
+            if (!_started)
+            {
+                _geoLocationWatcher.Start(new MvxGeoLocationOptions(), OnLocation, OnError);
+            }
+            else
+            {
+                _geoLocationWatcher.Stop();
+            }
+            _started = !_started;
+            UpdateStarted();
         }
 
-        private void UpdateError()
+        private void OnLocation(MvxGeoLocation location)
         {
-            _errorText.Text = _locationViewModel.Error ?? "";
+            RunOnUiThread(() => UpdateLocation(location));
+        }
+
+        private void OnError(MvxLocationError error)
+        {
+            RunOnUiThread(() => UpdateError(error));
+        }
+
+        private void UpdateError(MvxLocationError error)
+        {
+            _errorText.Text = error.Code.ToString();
         }
 
         private void UpdateStarted()
         {
-            _startedText.Text = _locationViewModel.Started.ToString();
+            _startedText.Text = _started.ToString();
         }
 
-        private void UpdateLocation()
+        private void UpdateLocation(MvxGeoLocation location)
         {
             var lat = "Unknown";
             var lng = "Unknown";
 
-            var location = _locationViewModel.Location;
             if (location != null
                 && location.Coordinates != null)
             {
